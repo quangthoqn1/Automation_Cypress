@@ -1,0 +1,41 @@
+name: Run Cypress Tests
+
+on:
+  workflow_dispatch:
+    inputs:
+      testFolder:
+        description: 'Folder or spec file to run (e.g., cypress/e2e/login.cy.js)'
+        required: true
+        default: 'cypress/e2e'
+
+jobs:
+  cypress-run:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Cypress Tests
+        run: npx cypress run --spec "${{ github.event.inputs.testFolder }}"
+
+      - name: Upload screenshots on failure
+        uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
+
+      - name: Upload Allure Results
+        uses: actions/upload-artifact@v3
+        with:
+          name: allure-results
+          path: allure-results

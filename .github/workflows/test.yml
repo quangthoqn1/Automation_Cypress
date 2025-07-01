@@ -35,7 +35,7 @@ jobs:
           path: cypress/screenshots
 
       - name: Upload Allure Results
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: allure-results
           path: allure-results

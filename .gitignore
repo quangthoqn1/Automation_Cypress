@@ -1,0 +1,21 @@
+# Node modules (không cần push vì CI sẽ tự cài lại)
+node_modules/
+
+# Allure reports (được generate khi chạy test)
+allure-results/
+allure-report/
+
+# Cypress artifacts
+cypress/screenshots/
+cypress/videos/
+
+# Environment files (không nên push biến nhạy cảm)
+.env
+.env.local
+.env.*.local
+
+# IDE/OS files
+.DS_Store
+*.log
+.vscode/
+*.swp
